@@ -17,9 +17,11 @@ class CrabGame:
         self.settings = Settings()
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         # self.screen = pygame.display.set_mode((500, 300))
+        self.x, self.y = self.screen.get_size()
+        # print(self.x, self.y)
 
         self.crab_race_button = Crab_Race(self, 'Crab Race')
-        self.bg_color = (0, 0, 0)
+        self.bg_color = (11, 226, 245)
         self.game1 = Game1()
         self.game2 = Game2()
         self.crab_game_button = Crab_Game(self, 'Crab Game')
@@ -40,7 +42,7 @@ class CrabGame:
             # self.screen.fill((0, 0, 0))
             # self.screen.blit(pygame.transform.scale(self.background1.image, (1500, 900)), (0,0))
             se.background_lobby_sound.play()
-            self.play_button.draw_button()
+            # self.play_button.draw_button()
             # self.crab_race_button.draw_button()
             pygame.display.flip()
 
@@ -83,13 +85,8 @@ class CrabGame:
 
     def _update_screen(self):
         """controls screen updates to include images and buttons"""
-        self.screen.fill(self.bg_color)
-        #monitor size:
-        self.screen.blit(pygame.transform.scale(self.background1.image, (1920, 1080)), (0, 0))
-        #laptop size:
-        # self.screen.blit(pygame.transform.scale(self.background1.image, (1500, 900)), (0, 0))
-        # self.screen.blit(self.background1.image, (0, 0))
-
+        # self.screen.fill(self.bg_color)
+        self.screen.blit(pygame.transform.scale(self.background1.image, (self.x, self.y)), (0, 0))
         if not self.settings.game_active:
             self.play_button.draw_button()
             self.crab_race_button.draw_button()

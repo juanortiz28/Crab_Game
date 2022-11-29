@@ -6,6 +6,8 @@ class Game2:
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.red_crab = pygame.image.load('images/red.png')
+        self.red_crab = pygame.transform.rotate(self.red_crab, -90)
         self.bg_color = (0,0,0)
 
     def run_game2(self):

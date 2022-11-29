@@ -7,7 +7,7 @@ class Crab_Race:
         self.width, self.height = 300, 80
         self.button_color = (11, 226, 245)
         self.text_color = (0, 0, 0)
-        self.font = pygame.font.SysFont('comicsansms', 48)
+        self.font = pygame.font.SysFont('felixtitling', 48)
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.bottomleft = self.screen_rect.bottomleft
         self._prep_msg(msg)
