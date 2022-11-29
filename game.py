@@ -9,14 +9,14 @@ from game1 import Game1
 from game2 import Game2
 import sound_effects as se
 
-DDDDD
+
 class CrabGame:
 
     def __init__(self):
         pygame.init()
         self.settings = Settings()
-        #self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-        self.screen = pygame.display.set_mode((500, 300))
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        # self.screen = pygame.display.set_mode((500, 300))
 
         self.crab_race_button = Crab_Race(self, 'Crab Race')
         self.bg_color = (0, 0, 0)
@@ -84,8 +84,11 @@ class CrabGame:
     def _update_screen(self):
         """controls screen updates to include images and buttons"""
         self.screen.fill(self.bg_color)
+        #monitor size:
+        self.screen.blit(pygame.transform.scale(self.background1.image, (1920, 1080)), (0, 0))
+        #laptop size:
         # self.screen.blit(pygame.transform.scale(self.background1.image, (1500, 900)), (0, 0))
-        self.screen.blit(self.background1.image,(0, 0))
+        # self.screen.blit(self.background1.image, (0, 0))
 
         if not self.settings.game_active:
             self.play_button.draw_button()
