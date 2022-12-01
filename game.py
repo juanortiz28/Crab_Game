@@ -54,7 +54,6 @@ class CrabGame:
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
                 self._check_play_button(mouse_pos)
-                pygame.mixer.pause()
             elif event.type == pygame.KEYDOWN:
                 self._check_keydown_events(event)
             # elif event.type == pygame.KEYUP:
@@ -64,16 +63,13 @@ class CrabGame:
         """responds to keydown events"""
         if event.key == pygame.K_q:
             sys.exit()
-        elif event.key == pygame.K_p:
-            se.background_lobby_sound.set_volume(0)
-        elif event.key == pygame.K_l:
-            se.background_lobby_sound.play()
 
     # def _check_keyup_events(self, event)
     def _check_play_button(self, mouse_pos):
         """checks to see when buttons have been pressed so that the new game can begin"""
         button_clicked1 = self.crab_race_button.rect.collidepoint(mouse_pos)
         button_clicked2 = self.crab_game_button.rect.collidepoint(mouse_pos)
+
         if button_clicked2 and not self.settings.game_active:
             self.settings.game_active = True
             se.background_lobby_sound.set_volume(0)
