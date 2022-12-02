@@ -10,6 +10,7 @@ from game2 import Game2
 import sound_effects as se
 
 
+
 class MainGame:
     def __init__(self):
         pygame.init()
