@@ -10,8 +10,7 @@ from game2 import Game2
 import sound_effects as se
 
 
-class CrabGame:
-
+class MainGame:
     def __init__(self):
         pygame.init()
         self.settings = Settings()
@@ -91,5 +90,5 @@ class CrabGame:
 
 
 if __name__ == '__main__':
-    ai = CrabGame()
+    ai = MainGame()
     ai.run_game()

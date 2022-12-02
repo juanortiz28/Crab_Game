@@ -1,17 +1,18 @@
 import pygame
 from pygame.sprite import Sprite
 import random
+from settings2 import Settings
 
 class Crabs:
     def __init__(self, ai_gamne):
         super().__init__()
         self.screen = ai_gamne.screen
         self.speed = 0.5
+        self.settings = Settings()
         self.red_crab = pygame.image.load('images/red.png')
         self.green_crab = pygame.image.load('images/green.png')
         self.blue_crab = pygame.image.load('images/blue.png')
         self.rect_red = self.red_crab.get_rect()
-        # self.rect_red.bottomleft = self.rect_red.bottomleft!!!!!!! #i basically am trying to change the way i load them up so that i can check the edges
         self.rect_blue = self.blue_crab.get_rect()
         self.rect_green = self.green_crab.get_rect()
         self.x, self.y = self.screen.get_size()
@@ -23,10 +24,10 @@ class Crabs:
         self.green_crab_y = self.y - 50
         self.rect_red = pygame.Rect(0,0,self.red_crab_x, self.red_crab_y)
 
-    # d/ef create_crabs(self):
-        # self.screen.blit(self.red_crab, (self.red_crab_x, self.red_crab_y))
-        # # self.screen.blit(self.blue_crab, (self.blue_crab_x, self.blue_crab_y))
-        # self.screen.blit(self.green_crab, (self.green_crab_x, self.green_crab_y))
+    def create_crabs(self):
+        self.screen.blit(self.red_crab, (self.red_crab_x, self.red_crab_y))
+        self.screen.blit(self.blue_crab, (self.blue_crab_x, self.blue_crab_y))
+        self.screen.blit(self.green_crab, (self.green_crab_x, self.green_crab_y))
     def check_top(self):
         screen_rect = self.screen.get_rect()
         if self.rect_blue <= screen_rect.top:
@@ -114,12 +115,12 @@ class Crabs_New:
 
         if self.height <= 720:
             self.rect_blue.y -= random.randint(0,3) - 1
-            self.rect_red.y = random.randint(0,3) - 1
-            self.rect_green.y = random.randint(0,3) - 1
+            self.rect_red.y -= random.randint(0,3) - 1
+            self.rect_green.y -= random.randint(0,3) - 1
         elif self.height > 720:
             self.rect_blue.y -= random.randint(0, 3) - 1
-            self.rect_red.y = random.randint(0, 3) - 1
-            self.rect_green.y = random.randint(0, 3) - 1
+            self.rect_red.y -= random.randint(0, 3) - 1
+            self.rect_green.y -= random.randint(0, 3) - 1
 
 
         #update rect object from self.x
@@ -132,12 +133,31 @@ class Crabs_New:
     def center_ship(self):
         """center after collision"""
         self.rect_blue.midbottom = self.screen_rect.midbottom
-        self.x = float(self.rect_blue.x)
-        self.y = float(self.rect_blue.y)
+        self.rect_blue.x = float(self.rect_blue.x)
+        self.rect_blue.y = float(self.rect_blue.y)
+        self.rect_green.bottomright = self.screen_rect.bottomright
+        self.rect_green.x = float(self.rect_green.x)
+        self.rect_green.y = float(self.rect_green.y)
+        self.rect_blue.bottomleft = self.screen_rect.bottomleft
+        self.rect_red.x = float(self.rect_red.x)
+        self.rect_red.y = float(self.rect_red.y)
     def blitme(self):
         """draw ship at current location"""
         self.screen.blit(self.image_blue, self.rect_blue)
         self.screen.blit(self.image_red, self.rect_red)
         self.screen.blit(self.image_green, self.rect_green)
+    def check_edges(self):
+        #return true if alien is at edge of screen
+        screen_rect = self.screen.get_rect()
+
+        if self.rect_blue.top == screen_rect.top:
+            self.settings.guess = 'BLUE'
+            self.settings.game_active = False
+        elif self.rect_red.top == screen_rect.top:
+            self.settings.guess = 'RED'
+            self.settings.game_active = False
+        elif self.rect_green.top == screen_rect.top:
+            self.settings.guess = 'GREEN'
+            self.settings.game_active = False
 
 
