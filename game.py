@@ -4,12 +4,15 @@ from background1 import Background1
 from Tittle_Buttons import Tittle_Button
 from Game1_Button import Crab_Race
 from settings import Settings
+
 from Game2_Button import Crab_Game
 from game1 import Game1
 from game2 import Game2
 import sound_effects as se
-
-
+#Help from Sebasteon Allen
+#Help from Alexandra Adelman
+#Help from Hava Szarafinski
+#Help fro
 
 class MainGame:
     def __init__(self):
@@ -33,17 +36,8 @@ class MainGame:
         """runs the game"""
         while True:
             self._check_events()
-            # if self.settings.game_active:
             self._update_screen()
-            # for event in pygame.event.get():
-            #     if event.type == pygame.KEYDOWN:
-            #         if event.key == pygame.K_q:
-            #             sys.exit()
-            # self.screen.fill((0, 0, 0))
-            # self.screen.blit(pygame.transform.scale(self.background1.image, (1500, 900)), (0,0))
             se.background_lobby_sound.play()
-            # self.play_button.draw_button()
-            # self.crab_race_button.draw_button()
             pygame.display.flip()
 
     def _check_events(self):
