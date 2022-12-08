@@ -12,6 +12,7 @@ class CrabsGame2:
         self.settings = ai_game.settings
         self.screen_rect = ai_game.screen.get_rect()
         self.width, self.height = self.screen.get_size()
+        self.speed = 0.5
 
         # load up ship
 
@@ -47,15 +48,16 @@ class CrabsGame2:
         """update the ship's position based on the movement flag"""
         #update the ships x value, not rect
         if self.moving_down_red and self.rect_red.bottom < self.screen_rect.bottom:
-            self.rect_red.y += self.settings.crab_speed
-            print("red down")
+            self.rect_red.y += 1
         if self.moving_up_red and self.rect_red.top > 0:
-            self.rect_red.y += self.settings.crab_speed
+            self.rect_red.y -= 1
 
         if self.moving_down_green and self.rect_green.bottom < self.screen_rect.bottom:
-            self.rect_green.y += self.settings.crab_speed
+            self.rect_green.y += 1
+            print(self.moving_down_green)
         if self.moving_up_green and self.rect_green.top > 0:
-            self.rect_green.y -= self.settings.crab_speed
+            print(self.moving_up_green)
+            self.rect_green.y -= 1
 
         self.rect_red.y = self.rect_red.y
         self.rect_red.x = self.rect_red.x

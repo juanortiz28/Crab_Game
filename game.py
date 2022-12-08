@@ -12,7 +12,9 @@ import sound_effects as se
 #Help from Sebasteon Allen
 #Help from Alexandra Adelman
 #Help from Hava Szarafinski
-#Help fro
+#Help from Matt McClelland
+#Yohan Afewerki
+#Help from Peter Lee
 
 class MainGame:
     def __init__(self):
@@ -31,13 +33,14 @@ class MainGame:
         pygame.display.set_caption("Crab Game")
         self.background1 = Background1(self)
         self.play_button = Tittle_Button(self, 'Crab Game!')
+        se.background_lobby_sound.play()
 
     def run_game(self):
         """runs the game"""
         while True:
             self._check_events()
             self._update_screen()
-            se.background_lobby_sound.play()
+            # se.background_lobby_sound.play()
             pygame.display.flip()
 
     def _check_events(self):
@@ -66,11 +69,11 @@ class MainGame:
 
         if button_clicked2 and not self.settings.game_active:
             self.settings.game_active = True
-            se.background_lobby_sound.set_volume(0)
+            se.background_lobby_sound.stop()
             self.game2.run_game2()
         if button_clicked1 and not self.settings.game_active:
             self.settings.game_active = True
-            se.background_lobby_sound.set_volume(0)
+            se.background_lobby_sound.stop()
             self.game1.run_game1()
 
     def _update_screen(self):

@@ -31,7 +31,9 @@ class Game1:
         self.star_over = Start_Over(self, 'Press T to go again')
         self.game2 = Game2()
         self.home = Home(self, 'CrabGame')
-#TODO: fix why the sound does not play if the game is played from the main
+        se.idle.play()
+        se.idle2.play()
+#TODO: fix THE SOUND TSO THAT IT PLAYS CONT THROUGH THE RACE UNTIL REACHES THE TOP
     def run_game1(self):
         """Runs the game with a while loop"""
         while True:
@@ -70,8 +72,6 @@ class Game1:
             self.star_over.draw_button()
             se.racing.stop()
 
-
-
         elif self.settings.guess == 'GREEN':
             self.winner = Winner(self, 'GREEN WINS!')
             self.winner.draw_start_button()
@@ -90,28 +90,34 @@ class Game1:
             self.settings.race = True
             self.settings.guess = 'Green'
             se.racing.play()
+            se.idle.stop()
+            se.idle2.stop()
 
         elif event.key == pygame.K_r:
             self.settings.game_active = True
             self.settings.guess = 'Red'
             self.settings.race = True
             se.racing.play()
-
+            se.idle.stop()
+            se.idle2.stop()
 
         elif event.key == pygame.K_b:
             self.settings.game_active = True
             self.settings.guess = 'Blue'
             self.settings.race = True
             se.racing.play()
-
+            se.idle.stop()
+            se.idle2.stop()
 
         elif event.key == pygame.K_t:
             self.settings.game_active = False
+            self.settings.race = False
             self.crabs_new.center_crab()
             self.crabs_new.blitme()
+            se.idle.play()
+            se.idle2.play()
 
 
-        # elif event.key ==
 
     def _check_buttons(self):
         """checks to see when buttons have been pressed so that the new game can begin"""
@@ -126,18 +132,24 @@ class Game1:
             self.settings.race = True
             self.settings.guess = 'Blue'
             se.racing.play()
+            se.idle.stop()
+            se.idle2.stop()
 
         if red_crab and not self.settings.game_active:
             self.settings.game_active = True
             self.settings.race = True
             self.settings.guess = 'Red'
             se.racing.play()
+            se.idle.stop()
+            se.idle2.stop()
 
         if green_crab and not self.settings.game_active:
             self.settings.game_active = True
             self.settings.race = True
             self.settings.guess = 'Green'
             se.racing.play()
+            se.idle.stop()
+            se.idle2.stop()
 
 
     def _update_screen2(self):

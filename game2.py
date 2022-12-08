@@ -53,31 +53,39 @@ class Game2:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-            elif event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN:
                 self._check_keydown_events2(event)
-            elif event.type == pygame.KEYUP:
+            if event.type == pygame.KEYUP:
                 self._check_keyup_events2(event)
     def _check_keydown_events2(self, event):
         if event.key == pygame.K_q:
             sys.exit()
         if event.key == pygame.K_w:
             self.crabs_2.moving_up_red = True
+            # print("w pressed")
         if event.key == pygame.K_x:
             self.crabs_2.moving_down_red = True
-        if event.type == pygame.KEYUP:
+            # print("x pressed")
+        if event.key == pygame.K_UP:
             self.crabs_2.moving_up_green = True
-        if event.type == pygame.KEYDOWN:
+            print("up pressed")
+        if event.key == pygame.K_DOWN:
             self.crabs_2.moving_down_green = True
+            print("down pressed")
 
     def _check_keyup_events2(self, event):
         if event.key == pygame.K_w:
             self.crabs_2.moving_up_red = False
+            # print("w")
         if event.key == pygame.K_x:
             self.crabs_2.moving_down_red = False
-        if event.type == pygame.KEYUP:
+            # print("x")
+        if event.key == pygame.K_UP:
             self.crabs_2.moving_up_green = False
-        if event.type == pygame.KEYDOWN:
+            print("up")
+        if event.key == pygame.K_DOWN:
             self.crabs_2.moving_down_green = False
+            print('down')
 
     def _update_screen2(self):
         """updates the screen"""
