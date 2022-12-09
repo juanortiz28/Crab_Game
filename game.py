@@ -15,6 +15,7 @@ import sound_effects as se
 #Help from Matt McClelland
 #Yohan Afewerki
 #Help from Peter Lee
+#Help from Nick Zolovick
 
 class MainGame:
     def __init__(self):
@@ -33,14 +34,12 @@ class MainGame:
         pygame.display.set_caption("Crab Game")
         self.background1 = Background1(self)
         self.play_button = Tittle_Button(self, 'Crab Game!')
-        se.background_lobby_sound.play()
-
+        se.halo.play().set_volume(2)
     def run_game(self):
         """runs the game"""
         while True:
             self._check_events()
             self._update_screen()
-            # se.background_lobby_sound.play()
             pygame.display.flip()
 
     def _check_events(self):
@@ -53,15 +52,13 @@ class MainGame:
                 self._check_play_button(mouse_pos)
             elif event.type == pygame.KEYDOWN:
                 self._check_keydown_events(event)
-            # elif event.type == pygame.KEYUP:
-            #     self._check_keyup_events(event)
+
 
     def _check_keydown_events(self, event):
         """responds to keydown events"""
         if event.key == pygame.K_q:
             sys.exit()
 
-    # def _check_keyup_events(self, event)
     def _check_play_button(self, mouse_pos):
         """checks to see when buttons have been pressed so that the new game can begin"""
         button_clicked1 = self.crab_race_button.rect.collidepoint(mouse_pos)
@@ -69,16 +66,16 @@ class MainGame:
 
         if button_clicked2 and not self.settings.game_active:
             self.settings.game_active = True
-            se.background_lobby_sound.stop()
+            se.halo.set_volume(1)
             self.game2.run_game2()
         if button_clicked1 and not self.settings.game_active:
             self.settings.game_active = True
-            se.background_lobby_sound.stop()
+            se.halo.set_volume(1)
             self.game1.run_game1()
+
 
     def _update_screen(self):
         """controls screen updates to include images and buttons"""
-        # self.screen.fill(self.bg_color)
         self.screen.blit(pygame.transform.scale(self.background1.image, (self.x, self.y)), (0, 0))
         if not self.settings.game_active:
             self.play_button.draw_button()

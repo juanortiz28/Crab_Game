@@ -88,7 +88,6 @@ class Crabs_New:
     def __init__(self, ai_game):
         """ship's starting position"""
         self.screen = ai_game.screen
-        # self.angle = ai_game.angle
         self.settings = ai_game.settings
         self.screen_rect = ai_game.screen.get_rect()
         self.width, self.height = self.screen.get_size()
@@ -126,13 +125,13 @@ class Crabs_New:
         """update the crab's's position based on random int"""
 
         if self.height <= 720:
-            self.rect_blue.y -= random.randint(0,3) - 1
+            self.rect_blue.y -= random.randint(0, 3) - 1
             self.rect_red.y -= random.randint(0,3) - 1
             self.rect_green.y -= random.randint(0,3) - 1
         elif self.height > 720:
-            self.rect_blue.y -= random.randint(0, 3) - 1
-            self.rect_red.y -= random.randint(0, 3) - 1
-            self.rect_green.y -= random.randint(0, 3) - 1
+            self.rect_blue.y -= random.randint(0, 2) - 0.4
+            self.rect_red.y -= random.randint(0, 2) - 0.4
+            self.rect_green.y -= random.randint(0, 2) - 0.4
 
 
         #update rect object from self.x
@@ -142,6 +141,7 @@ class Crabs_New:
         self.rect_red.x = self.rect_red.x
         self.rect_green.y = self.rect_green.y
         self.rect_green.x = self.rect_green.x
+
     def center_crab(self):
         """center after collision"""
         self.rect_blue.midbottom = self.screen_rect.midbottom
@@ -153,22 +153,67 @@ class Crabs_New:
         self.rect_red.bottomleft = self.screen_rect.bottomleft
         self.rect_red.x = float(self.rect_red.x)
         self.rect_red.y = float(self.rect_red.y)
+
     def blitme(self):
         """draw ship at current location"""
         self.screen.blit(self.image_blue, self.rect_blue)
         self.screen.blit(self.image_red, self.rect_red)
         self.screen.blit(self.image_green, self.rect_green)
+
     def check_edges(self):
         screen_rect = self.screen.get_rect()
         if self.rect_blue.top == screen_rect.top:
-            self.settings.guess = 'BLUE'
+            self.settings.winner_Crab = 'BLUE'
             self.settings.race = False
         elif self.rect_red.top == screen_rect.top:
-            self.settings.guess = 'RED'
+            self.settings.winner_Crab = 'RED'
             self.settings.race = False
         elif self.rect_green.top == screen_rect.top:
-            self.settings.guess = 'GREEN'
+            self.settings.winner_Crab = 'GREEN'
             self.settings.race = False
+
+    # def center_red(self):
+    #     self.rect_red.bottomleft = self.screen_rect.bottomleft
+    #     self.rect_red.x = float(self.rect_red.x)
+    #     self.rect_red.y = float(self.rect_red.y)
+    #
+    # def center_blue(self):
+    #     self.rect_blue.midbottom = self.screen_rect.midbottom
+    #     self.rect_blue.x = float(self.rect_blue.x)
+    #     self.rect_blue.y = float(self.rect_blue.y)
+    # def center_green(self):
+    #     self.rect_green.bottomright = self.screen_rect.bottomright
+    #     self.rect_green.x = float(self.rect_green.x)
+    #     self.rect_green.y = float(self.rect_green.y)
+    #
+    #
+    # # def check_edges(self):
+    # #     screen_rect = self.screen.get_rect()
+    # #     if self.rect_blue.top == screen_rect.top:
+    # #         # self.center_blue()
+    # #         self.settings.laps_blue -= 1
+    # #         if self.settings.laps_blue == 0:
+    # #             self.settings.race = False
+    # #             self.settings.guess = 'BLUE'
+    # #
+    # #     if self.rect_red.top == screen_rect.top:
+    # #         self.settings.laps_red -= 1
+    # #         self.center_red()
+    # #         if self.settings.laps_red == 0:
+    # #             self.settings.race = False
+    # #             self.settings.guess = 'RED'
+    # #
+    # #     if self.rect_green.top == screen_rect.top:
+    # #         self.settings.laps_green -= 1
+    # #         self.center_green()
+    # #         if self.settings.laps_green == 0:
+    # #             self.settings.race = False
+    # #             self.settings.guess = 'RED'
+    # def reset_laps(self):
+    #     self.settings.laps_red = 3
+    #     self.settings.laps_blue = 3
+    #     self.settings.laps_green = 3
+
 
 class SeaShells(Sprite):
     """a class to represent a single alien in the fleet"""
