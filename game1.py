@@ -1,4 +1,3 @@
-import random
 import time
 import pygame
 from settings2 import Settings
@@ -65,6 +64,7 @@ class Game1:
             self.guess_text.draw_button()
             if self.settings.guess == 'Red':
                 self.settings.correct_guesses += 1
+                self.settings.guess = False
             self.sb.prep_start()
             self.sb.show_score()
             se.sponge.stop()
@@ -77,9 +77,11 @@ class Game1:
             self.guess_text.draw_button()
             if self.settings.guess == 'Blue':
                 self.settings.correct_guesses += 1
+                self.settings.guess = False
             self.sb.prep_start()
             self.sb.show_score()
             se.sponge.stop()
+
 
 
         elif self.settings.winner_Crab == 'GREEN':
@@ -90,9 +92,11 @@ class Game1:
             self.guess_text.draw_button()
             if self.settings.guess == 'Green':
                 self.settings.correct_guesses += 1
+                self.settings.guess = False
             self.sb.prep_start()
             self.sb.show_score()
             se.sponge.stop()
+            se.halo.play()
 
 
     def _check_keydown_events1(self, event):

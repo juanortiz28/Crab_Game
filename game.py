@@ -34,7 +34,7 @@ class MainGame:
         pygame.display.set_caption("Crab Game")
         self.background1 = Background1(self)
         self.play_button = Tittle_Button(self, 'Crab Game!')
-        se.halo.play().set_volume(2)
+        se.background_lobby_sound.play()
     def run_game(self):
         """runs the game"""
         while True:
@@ -66,11 +66,9 @@ class MainGame:
 
         if button_clicked2 and not self.settings.game_active:
             self.settings.game_active = True
-            se.halo.set_volume(1)
             self.game2.run_game2()
         if button_clicked1 and not self.settings.game_active:
             self.settings.game_active = True
-            se.halo.set_volume(1)
             self.game1.run_game1()
 
 

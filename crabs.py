@@ -10,6 +10,7 @@ class CrabsGame2:
         """ship's starting position"""
         self.screen = ai_game.screen
         self.settings = ai_game.settings
+        self.angle = ai_game.angle
         self.screen_rect = ai_game.screen.get_rect()
         self.width, self.height = self.screen.get_size()
         self.speed = 0.5
@@ -18,8 +19,9 @@ class CrabsGame2:
 
         self.image_green = pygame.image.load('images/green.png')
         self.image_red = pygame.image.load('images/red.png')
-        # self.red_crab_rot = pygame.transform.rotate(self.image_red, -90)
-        # self.green_crab_rot = pygame.transform.rotate(self.image_green, 90)
+        self.image_red = pygame.transform.rotate(self.image_red, self.angle)
+        self.image_green = pygame.transform.rotate(self.image_green, self.angle)
+        rot
         self.rect_red = self.image_red.get_rect()
         self.rect_green = self.image_green.get_rect()
 
@@ -40,32 +42,40 @@ class CrabsGame2:
 
         self.moving_up_red = False
         self.moving_down_red = False
-
         self.moving_up_green = False
         self.moving_down_green = False
+        self.moving_left_red = False
+        self.moving_right_red = False
+        self.moving_left_green = False
+        self.moving_right_green = False
 
     def update(self):
         """update the ship's position based on the movement flag"""
         #update the ships x value, not rect
         if self.moving_down_red and self.rect_red.bottom < self.screen_rect.bottom:
-            self.rect_red.y += 1
+            self.rect_red.y += 2
         if self.moving_up_red and self.rect_red.top > 0:
-            self.rect_red.y -= 1
+            self.rect_red.y -= 2
 
         if self.moving_down_green and self.rect_green.bottom < self.screen_rect.bottom:
-            self.rect_green.y += 1
-            print(self.moving_down_green)
+            self.rect_green.y += 2
         if self.moving_up_green and self.rect_green.top > 0:
-            print(self.moving_up_green)
-            self.rect_green.y -= 1
+            self.rect_green.y -= 2
+
+        if self.moving_right_red and self.rect_red.right < self.screen_rect.right:
+            self.rect_red.x += 2
+        if self.moving_left_red and self.rect_red.left > 0:
+            self.rect_red.x -= 2
+
+        if self.moving_right_green and self.rect_green.right < self.screen_rect.right:
+            self.rect_green.x += 2
+        if self.moving_left_green and self.rect_green.left > 0:
+            self.rect_green.x -= 2
 
         self.rect_red.y = self.rect_red.y
         self.rect_red.x = self.rect_red.x
         self.rect_green.y = self.rect_green.y
         self.rect_green.x = self.rect_green.x
-
-        w_red, h_red = pygame.display.get_surface().get_size()
-        self.rect_red.y = self.rect_red.y % h_red
 
     def center_crab(self):
         """center after collision"""
@@ -165,10 +175,10 @@ class Crabs_New:
         if self.rect_blue.top == screen_rect.top:
             self.settings.winner_Crab = 'BLUE'
             self.settings.race = False
-        elif self.rect_red.top == screen_rect.top:
+        if self.rect_red.top == screen_rect.top:
             self.settings.winner_Crab = 'RED'
             self.settings.race = False
-        elif self.rect_green.top == screen_rect.top:
+        if self.rect_green.top == screen_rect.top:
             self.settings.winner_Crab = 'GREEN'
             self.settings.race = False
 

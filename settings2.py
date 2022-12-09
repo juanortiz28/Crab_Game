@@ -5,6 +5,7 @@ class Settings:
         self.laps_blue = 3
         self.laps_green = 3
         self.correct_guesses = 0
+        self.scoring = False
         self.race = False
         self.guess = False
         self.winner_Crab = False
