@@ -4,10 +4,7 @@ from background1 import Background1
 from Tittle_Buttons import Tittle_Button
 from Game1_Button import Crab_Race
 from settings import Settings
-
-from Game2_Button import Crab_Game
 from game1 import Game1
-from game2 import Game2
 import sound_effects as se
 #Help from Sebasteon Allen
 #Help from Alexandra Adelman
@@ -19,6 +16,7 @@ import sound_effects as se
 
 class MainGame:
     def __init__(self):
+        """INITIATES THE GAME"""
         pygame.init()
         self.settings = Settings()
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
@@ -26,11 +24,9 @@ class MainGame:
         self.x, self.y = self.screen.get_size()
         # print(self.x, self.y)
 
-        self.crab_race_button = Crab_Race(self, 'Crab Race')
+        self.crab_race_button = Crab_Race(self, 'Click to Start Crab Race!')
         self.bg_color = (11, 226, 245)
         self.game1 = Game1()
-        self.game2 = Game2()
-        self.crab_game_button = Crab_Game(self, 'Crab Game')
         pygame.display.set_caption("Crab Game")
         self.background1 = Background1(self)
         self.play_button = Tittle_Button(self, 'Crab Game!')
@@ -56,17 +52,12 @@ class MainGame:
 
     def _check_keydown_events(self, event):
         """responds to keydown events"""
-        if event.key == pygame.K_q:
+        if event.key == pygame.K_ESCAPE:
             sys.exit()
 
     def _check_play_button(self, mouse_pos):
         """checks to see when buttons have been pressed so that the new game can begin"""
         button_clicked1 = self.crab_race_button.rect.collidepoint(mouse_pos)
-        button_clicked2 = self.crab_game_button.rect.collidepoint(mouse_pos)
-
-        if button_clicked2 and not self.settings.game_active:
-            self.settings.game_active = True
-            self.game2.run_game2()
         if button_clicked1 and not self.settings.game_active:
             self.settings.game_active = True
             self.game1.run_game1()
@@ -78,7 +69,6 @@ class MainGame:
         if not self.settings.game_active:
             self.play_button.draw_button()
             self.crab_race_button.draw_button()
-            self.crab_game_button.draw_button()
         pygame.display.flip()
 
 

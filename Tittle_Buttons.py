@@ -29,22 +29,33 @@ class Correct_Guess_Counter:
         self.screen_rect = self.screen.get_rect()
         self.settings = ai_game.settings
         self.x, self.y = self.screen.get_size()
-        #font settings
         self.text_color = (255, 255, 255)
         self.font = pygame.font.Font('font/ModernWarfare-OV7KP.ttf', 20)
-        #prepare initial score image
         self.prep_start()
+        self.prep_high_score()
     def prep_start(self):
         """render score image"""
         score_str = str(self.settings.correct_guesses)
         self.score_image = self.font.render(score_str, True, self.text_color, None)
-        #display the score at top right
         self.score_rect = self.score_image.get_rect()
         self.score_rect.right = self.screen_rect.right - 20
         self.score_rect.top = self.y / 2
+    def prep_high_score(self):
+        high_score_str = str(self.settings.max_guesses)
+        self.high_score_image = self.font.render(high_score_str, True, self.text_color, None)
+
+        self.high_score_rect = self.high_score_image.get_rect()
+        self.score_rect.right = self.screen_rect.right - 20
+        self.score_rect.top = self.y / 2 + 50
+
+    def check_max_guesses(self):
+        if self.settings.correct_guesses > self.settings.max_guesses:
+            self.settings.max_guesses = self.settings.correct_guesses
+            self.prep_high_score()
     def show_score(self):
         """draw score to the screen"""
         self.screen.blit(self.score_image, self.score_rect)
+        self.screen.blit(self.high_score_image, self.high_score_rect)
 class Start_Game1:
     """This class creates the button for Crab Race which tells you to choose a crab! it will load in the middle of the screen"""
     def __init__(self, ai_game, msg):
@@ -53,7 +64,28 @@ class Start_Game1:
         self.width, self.height = 500, 80
         self.button_color = (0, 0, 0)
         self.text_color = (255,255,255)
-        self.font = pygame.font.Font('font/ModernWarfare-OV7KP.ttf', 80)
+        self.font = pygame.font.Font('font/ModernWarfare-OV7KP.ttf', 66)
+        self.rect = pygame.Rect(0, 0, self.width, self.height)
+        self.rect.center = self.screen_rect.center
+        self._prep_msg(msg)
+
+    def _prep_msg(self, msg):
+        self.msg_image = self.font.render(msg, True, self.text_color, None)
+        self.msg_image_rect = self.msg_image.get_rect()
+        self.msg_image_rect.center = self.rect.center
+
+    def draw_start_button(self):
+        self.screen.blit(self.msg_image, self.msg_image_rect)
+
+class Start_Game2:
+    """This class creates the button for Crab Race which tells you to choose a crab! it will load in the middle of the screen"""
+    def __init__(self, ai_game, msg):
+        self.screen = ai_game.screen
+        self.screen_rect = self.screen.get_rect()
+        self.width, self.height = 500, 80
+        self.button_color = (0, 0, 0)
+        self.text_color = (255,255,255)
+        self.font = pygame.font.Font('font/ModernWarfare-OV7KP.ttf', 30)
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.center = self.screen_rect.center
         self._prep_msg(msg)
@@ -68,6 +100,7 @@ class Start_Game1:
 
 
 class Winner:
+    """this class is for the winner button"""
     def __init__(self, ai_game, msg):
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
@@ -159,4 +192,3 @@ class Start_Over:
     def draw_button(self):
         self.screen.blit(self.msg_image, self.msg_image_rect)
 
-# print(pygame.font.get_fonts())

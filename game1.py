@@ -13,7 +13,6 @@ from crabs import Crabs_New
 from game2 import Game2
 import sound_effects as se
 
-#TODO: FIX HOW THE SCORE GOES UP SO MUCH
 
 class Game1:
     def __init__(self):
@@ -61,12 +60,9 @@ class Game1:
             self.winner.draw_start_button()
             self.home.draw_button()
             self.star_over.draw_button()
-            self.guess_text.draw_button()
             if self.settings.guess == 'Red':
                 self.settings.correct_guesses += 1
                 self.settings.guess = False
-            self.sb.prep_start()
-            self.sb.show_score()
             se.sponge.stop()
 
         elif self.settings.winner_Crab == 'BLUE':
@@ -74,12 +70,9 @@ class Game1:
             self.winner.draw_start_button()
             self.home.draw_button()
             self.star_over.draw_button()
-            self.guess_text.draw_button()
             if self.settings.guess == 'Blue':
                 self.settings.correct_guesses += 1
                 self.settings.guess = False
-            self.sb.prep_start()
-            self.sb.show_score()
             se.sponge.stop()
 
 
@@ -89,19 +82,19 @@ class Game1:
             self.winner.draw_start_button()
             self.home.draw_button()
             self.star_over.draw_button()
-            self.guess_text.draw_button()
             if self.settings.guess == 'Green':
                 self.settings.correct_guesses += 1
                 self.settings.guess = False
-            self.sb.prep_start()
-            self.sb.show_score()
             se.sponge.stop()
-            se.halo.play()
 
+    def scoring(self):
+        self.sb.prep_start()
+        self.sb.check_max_guesses()
+        self.sb.show_score()
 
     def _check_keydown_events1(self, event):
         """reacts to keypresses down"""
-        if event.key == pygame.K_q:
+        if event.key == pygame.K_ESCAPE:
             sys.exit()
         elif event.key == pygame.K_g:
             self.settings.guess = 'Green'
@@ -166,6 +159,8 @@ class Game1:
         self.crabs_new.blitme()
         self.FinishLine.draw_button()
         self.crabs_new.check_edges()
+        self.scoring()
+        self.guess_text.draw_button()
         self.winner_crab()
 
         if not self.settings.game_active:
